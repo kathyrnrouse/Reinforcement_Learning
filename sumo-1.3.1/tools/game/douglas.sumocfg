@@ -1,0 +1,16 @@
+<configuration>
+
+    <input>
+        <net-file value="cross/douglas.net.xml"/>
+        <gui-settings-file value="cross/cross.settings.xml"/>
+        <route-files value="cross/douglas.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="180"/>
+        <step-length value=".2"/>
+    </time>
+
+</configuration>

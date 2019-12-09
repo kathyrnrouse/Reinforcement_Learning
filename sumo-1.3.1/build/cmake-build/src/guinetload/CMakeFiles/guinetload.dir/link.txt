@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libguinetload.a  CMakeFiles/guinetload.dir/GUIDetectorBuilder.cpp.o CMakeFiles/guinetload.dir/GUIEdgeControlBuilder.cpp.o CMakeFiles/guinetload.dir/GUITriggerBuilder.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libguinetload.a

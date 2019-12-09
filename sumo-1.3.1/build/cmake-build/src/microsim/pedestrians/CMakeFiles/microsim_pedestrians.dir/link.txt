@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libmicrosim_pedestrians.a  CMakeFiles/microsim_pedestrians.dir/MSPerson.cpp.o CMakeFiles/microsim_pedestrians.dir/MSPModel.cpp.o CMakeFiles/microsim_pedestrians.dir/MSPModel_Striping.cpp.o CMakeFiles/microsim_pedestrians.dir/MSPModel_NonInteracting.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libmicrosim_pedestrians.a

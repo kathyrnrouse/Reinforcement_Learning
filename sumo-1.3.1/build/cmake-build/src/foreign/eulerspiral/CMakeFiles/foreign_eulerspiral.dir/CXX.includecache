@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/krouse/Documents/CUIP/deepq_example/sumo-1.3.1/src/foreign/eulerspiral/odrSpiral.cpp
+stdio.h
+-
+math.h
+-
+

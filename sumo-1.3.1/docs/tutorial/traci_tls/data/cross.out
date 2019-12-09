@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Nov  5 16:46:29 2019 by Eclipse SUMO GUI Version 1.3.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="/Users/krouse/Documents/CUIP/deepq_example/sumo-1.3.1/docs/tutorial/traci_tls/data/cross.net.xml"/>
+        <route-files value="/Users/krouse/Documents/CUIP/deepq_example/sumo-1.3.1/docs/tutorial/traci_tls/data/cross.rou.xml"/>
+        <additional-files value="/Users/krouse/Documents/CUIP/deepq_example/sumo-1.3.1/docs/tutorial/traci_tls/data/cross.det.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="51678"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+</detector>

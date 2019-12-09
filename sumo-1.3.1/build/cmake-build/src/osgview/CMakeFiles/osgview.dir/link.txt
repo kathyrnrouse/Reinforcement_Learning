@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libosgview.a  CMakeFiles/osgview.dir/GUIOSGBuilder.cpp.o CMakeFiles/osgview.dir/GUIOSGView.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libosgview.a
