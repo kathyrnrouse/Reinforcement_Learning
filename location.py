@@ -14,84 +14,59 @@ from flow import TrafficFlow
  
 class Location:
 
-    def __init__(self, df, integer):
-        self.df = df
+    def __init__(self, CameraId, CarId):
+        self.douglas_json = pd.read_csv(CameraId, usecols = ['camera_id','id','label','timestamp','locations'], index_col='id',engine='python')
+        self.df = self.douglas_json[self.douglas_json.label =='car']
         self.jsons = []
-        self.integer = integer
+        self.car_id = CarId
         self.flow = TrafficFlow()
         self.flow.import_shapes('street shapes')
         self.cam_id = self.df["camera_id"][0]
-        self.locs = eval(self.df["locations"][self.integer])
+        self.locations = self.df['locations']
+        #self.cam_id = CameraId
   
 
-    #def get_single_car(self, count):
-    #return count
 
-    def get_timestamp(self):
-        times = []
-        for json_object in self.locs:
-            ts = json_object["timestamp"] / 1000
-            ts = datetime.datetime.fromtimestamp(ts)
-            times.append([ts])
-            #print("Object bbox from ({}, {}) to ({}, {}) at {}".format(x1, y1, x2, y2, ts))
-            #print(ts)
-        return times
-
-
-
-    def get_location(self):
-        #locs = eval(self.df["locations"][self.integer])
-        ret = []
-        for json_object in self.locs:
+    def get_car_info(self):
+        info = ast.literal_eval(self.locations[self.car_id])
+        coo = pd.DataFrame(columns = ['CarId','Time','Coords','Grid-Box'])
+        for i in range(len(info)):
             
-            x1, y1, x2, y2 = json_object["coords"]
-            ts = json_object["timestamp"] / 1000
-            ts = datetime.datetime.fromtimestamp(ts)
-            #print("Object bbox from ({}, {}) to ({}, {}) at {}".format(x1, y1, x2, y2, ts))
-            #center_x = (x1 + x2) // 2
-            #center_y = (y1 + y2) // 2
-            #print(center_x,center_y)
-            #ret.append((center_x, center_y))
-            #print(x1, x2, y1, y2)
-            ret.append([x1, y1, x2, y2])
-        return ret
+            ts = info[i]['timestamp']
+            coords = info[i]['coords'] # coords is the list of 4 values
+            space = self.get_grid(coords)
+            entry = [{'CarId':self.car_id, 'Time':ts,'Coords':coords,'Grid-Box':space}]
+            coo = coo.append(entry, ignore_index = True)
+            
+            #print(ider, ts, coords)
+        #print(coo)
+        return coo
     
-    def get_box(self):
-        foo = self.get_location()
-        foo = foo[self.integer]
-        #print(foo)
-        return foo
-
-    def check_box(self):
+    def get_grid(self, locs):
+        self.locs = locs
         boxes = []
-        box = self.get_location()
-        for i in range(len(box)):
-            goo = box[i]
+        grids = self.flow.get_position(self.cam_id, self.locs)
+        #print(grids)
+        #boxes = boxes.append(grids)
+        return grids
             
-            goo = self.flow.get_position(self.cam_id, goo)
-            #print(goo)
-            boxes.append([goo])
-        return boxes
+
+    def get_date_range(output_df, start_range, end_range): 
+       
+        start_hour = start_range.hour 
+        start_minute = start_range.minute 
+        start_second = start_range.second
+        start_mili = start_range.microsecond
+        cat = str(start_hour) + ':' + str(start_minute)+ ':' + str(start_second) + "."+str(start_mili)
+        print("start of range:" ,cat)
+        end_hour = end_range.hour
+        end_minute = end_range.minute
+        end_second = end_range.second 
+        end_mili=end_range.microsecond 
+        cat2 = str(end_hour)+":"+str(end_minute)+":"+str(end_second) + "." +str(end_mili)
+        print("end of range:",cat2)
+
+        print(output_df.between_time(*pd.to_datetime([cat,cat2]).time))
 
 
-    def get(self):
-        """Returns a JSON object of the currently accrued data"""
-        return self.jsons    
-
-    def appender(self):
-
-        new_json = {}
-        #new_json["pole_id"] = self.pole_id
-        new_json["timestamp"] = self.get_timestamp()
-        new_json["locations"] = self.get_location()
-        new_json["label"] = self.check_box()
-        new_json["camera_id"] = self.cam_id
-        #new_json["intersection"] = self.is_intsx
-        #new_json["id"] = str(uuid4())
-
-        self.jsons.append(json.dumps(new_json))
-        return self.jsons
-        
-        
-
-
+    
